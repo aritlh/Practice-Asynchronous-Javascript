@@ -8,6 +8,30 @@
 npm i node-fetch
 ```
 
+# Testing
+
+```javascript
+const { test, expect } = require("@jest/globals");
+
+function fetchData(callback) {
+  setTimeout(() => {
+    const data = "Data yang diterima";
+    callback(data);
+  }, 1000);
+}
+
+test("Menguji fetchData", (done) => {
+  fetchData((data) => {
+    expect(data).toBe("Data yang diterima");
+    done();
+  });
+});
+```
+
+![jest](public/imgs/jest-test.png)
+
+Dalam kasus ini, output menunjukkan bahwa pengujian "Menguji fetchData" telah berhasil dijalankan dan menghasilkan hasil yang diharapkan, sehingga pengujian lulus (pass).
+
 # Callback Example
 
 Callback digunakan secara luas dalam banyak pustaka (libraries) JavaScript untuk menangani operasi asynchronous atau peristiwa-peristiwa tertentu. Berikut adalah beberapa contoh penggunaan callback dalam pustaka-pustaka JavaScript populer:
