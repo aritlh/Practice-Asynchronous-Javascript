@@ -2,11 +2,11 @@
 
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/node-fetch?style=flat-square)
 
-## Callback Example
+# Callback Example
 
 Callback digunakan secara luas dalam banyak pustaka (libraries) JavaScript untuk menangani operasi asynchronous atau peristiwa-peristiwa tertentu. Berikut adalah beberapa contoh penggunaan callback dalam pustaka-pustaka JavaScript populer:
 
-1. Node.js:
+### Node.js:
 
 Dalam lingkungan Node.js, banyak fungsi bawaan menggunakan pola callback untuk menangani operasi asynchronous.
 
@@ -24,7 +24,7 @@ fs.readFile("file.txt", "utf8", function (error, data) {
 });
 ```
 
-2. jQuery:
+### jQuery:
 
 jQuery menggunakan callback dalam berbagai metode untuk menangani operasi asynchronous atau peristiwa seperti animasi, permintaan AJAX, atau peristiwa DOM.
 
@@ -36,7 +36,7 @@ $("#element").fadeIn("slow", function () {
 });
 ```
 
-3. Express.js:
+### Express.js:
 
 Express.js, framework web populer di Node.js, juga menggunakan callback untuk menangani permintaan HTTP dan middleware.
 
@@ -51,7 +51,7 @@ Contoh penggunaan callback dalam penanganan rute HTTP:
      });
      ```
 
-4. Mongoose:
+### Mongoose:
 
 Mongoose adalah pustaka ODM (Object-Document Mapper) untuk MongoDB, dan juga menggunakan callback dalam berbagai operasi database asynchronous.
 
@@ -78,7 +78,7 @@ Contoh penggunaan callback dalam operasi `findOne`:
 
 Pustaka-pustaka JavaScript lainnya, seperti Axios, Lodash, Async.js, dan banyak lagi, juga menggunakan callback dalam berbagai cara untuk menangani operasi asynchronous atau peristiwa tertentu. Callback memberikan fleksibilitas untuk menentukan logika yang akan dijalankan setelah operasi asynchronous selesai atau peristiwa terjadi.
 
-## Callback Hell
+# Callback Hell
 
 Contoh Callback Hell:
 
