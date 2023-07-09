@@ -1,39 +1,46 @@
+# Dependencies
+
+![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/node-fetch?style=flat-square)
+
 ## Callback Example
 
 Callback digunakan secara luas dalam banyak pustaka (libraries) JavaScript untuk menangani operasi asynchronous atau peristiwa-peristiwa tertentu. Berikut adalah beberapa contoh penggunaan callback dalam pustaka-pustaka JavaScript populer:
 
 1. Node.js:
 
-   - Dalam lingkungan Node.js, banyak fungsi bawaan menggunakan pola callback untuk menangani operasi asynchronous.
-   - Sebagai contoh, dalam fungsi `readFile` dari modul `fs`, Anda dapat memberikan callback sebagai argumen untuk menangani hasil pembacaan file.
+Dalam lingkungan Node.js, banyak fungsi bawaan menggunakan pola callback untuk menangani operasi asynchronous.
 
-     ```javascript
-     const fs = require("fs");
+Sebagai contoh, dalam fungsi `readFile` dari modul `fs`, Anda dapat memberikan callback sebagai argumen untuk menangani hasil pembacaan file.
 
-     fs.readFile("file.txt", "utf8", function (error, data) {
-       if (error) {
-         console.error("Terjadi kesalahan:", error);
-       } else {
-         console.log("Isi file:", data);
-       }
-     });
-     ```
+```javascript
+const fs = require("fs");
+
+fs.readFile("file.txt", "utf8", function (error, data) {
+  if (error) {
+    console.error("Terjadi kesalahan:", error);
+  } else {
+    console.log("Isi file:", data);
+  }
+});
+```
 
 2. jQuery:
 
-   - jQuery menggunakan callback dalam berbagai metode untuk menangani operasi asynchronous atau peristiwa seperti animasi, permintaan AJAX, atau peristiwa DOM.
-   - Contoh penggunaan callback dalam metode `fadeIn` untuk menangani animasi setelah selesai:
+jQuery menggunakan callback dalam berbagai metode untuk menangani operasi asynchronous atau peristiwa seperti animasi, permintaan AJAX, atau peristiwa DOM.
 
-     ```javascript
-     $("#element").fadeIn("slow", function () {
-       console.log("Animasi fadeIn selesai");
-     });
-     ```
+Contoh penggunaan callback dalam metode `fadeIn` untuk menangani animasi setelah selesai:
+
+```javascript
+$("#element").fadeIn("slow", function () {
+  console.log("Animasi fadeIn selesai");
+});
+```
 
 3. Express.js:
 
-   - Express.js, framework web populer di Node.js, juga menggunakan callback untuk menangani permintaan HTTP dan middleware.
-   - Contoh penggunaan callback dalam penanganan rute HTTP:
+Express.js, framework web populer di Node.js, juga menggunakan callback untuk menangani permintaan HTTP dan middleware.
+
+Contoh penggunaan callback dalam penanganan rute HTTP:
 
      ```javascript
      const express = require("express");
@@ -46,8 +53,9 @@ Callback digunakan secara luas dalam banyak pustaka (libraries) JavaScript untuk
 
 4. Mongoose:
 
-   - Mongoose adalah pustaka ODM (Object-Document Mapper) untuk MongoDB, dan juga menggunakan callback dalam berbagai operasi database asynchronous.
-   - Contoh penggunaan callback dalam operasi `findOne`:
+Mongoose adalah pustaka ODM (Object-Document Mapper) untuk MongoDB, dan juga menggunakan callback dalam berbagai operasi database asynchronous.
+
+Contoh penggunaan callback dalam operasi `findOne`:
 
      ```javascript
      const mongoose = require("mongoose");
@@ -113,7 +121,7 @@ Pada contoh kedua, Promises digunakan untuk menghindari Callback Hell. Setiap op
 
 Perhatikan bahwa contoh di atas hanya menggambarkan perbedaan dalam gaya penulisan kode antara Callback Hell dan penggunaan Promises. Implementasi sebenarnya dari fungsi `getDataA`, `processDataA`, `getDataB`, dan `processDataC` tidak diberikan dalam contoh ini.
 
-> secara kesimpulan, jika callback hell itu () => {} bersarang, sedangkan penanganannya dengan membuat promise. adapun sebuah syntax promise itu yang dimana memiliki method .then() dan .catch()
+> secara kesimpulan, jika callback hell itu `() => {}` bersarang, sedangkan penanganannya dengan membuat promise. adapun sebuah syntax promise itu yang dimana memiliki method `.then()` dan `.catch()`
 
 Berikut contoh yang sedikit lebih detail terkait penggunaan Promises:
 
@@ -141,6 +149,6 @@ getDataA()
   });
 ```
 
-Dalam contoh di atas, setiap fungsi asynchronous (seperti getDataA, processDataA, dll.) mengembalikan Promise. Metode .then() digunakan untuk menghubungkan tindakan-tindakan yang akan dilakukan setelah Promise terpenuhi. Jika ada kesalahan, metode .catch() akan menangani kesalahan tersebut.
+Dalam contoh di atas, setiap fungsi asynchronous (seperti `getDataA`, `processDataA`, dll.) mengembalikan Promise. Metode `.then()` digunakan untuk menghubungkan tindakan-tindakan yang akan dilakukan setelah Promise terpenuhi. Jika ada kesalahan, metode `.catch()` akan menangani kesalahan tersebut.
 
 Selain Promises, ada juga pendekatan lain seperti Async/Await yang menyediakan cara penulisan kode yang lebih linier dan mudah dibaca dalam situasi yang melibatkan operasi asynchronous.
