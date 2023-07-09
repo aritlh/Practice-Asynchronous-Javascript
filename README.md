@@ -103,6 +103,32 @@ getDataA(function (resultA) {
 Contoh penggunaan Promises untuk menghindari Callback Hell:
 
 ```javascript
+getDataA()
+  .then(function (resultA) {
+    // Melakukan tindakan setelah Promise A terpenuhi
+    return processDataA(resultA);
+  })
+  .then(function (resultB) {
+    // Melakukan tindakan setelah Promise B terpenuhi
+    return getDataB(resultB);
+  })
+  .then(function (resultC) {
+    // Melakukan tindakan setelah Promise C terpenuhi
+    return processDataC(resultC);
+  })
+  .then(function (finalResult) {
+    // Melakukan tindakan setelah semua Promise terpenuhi
+    console.log(finalResult);
+  })
+  .catch(function (error) {
+    // Menangani kesalahan jika terjadi
+    console.error(error);
+  });
+```
+
+versi clean code:
+
+```javascript
 try {
   const resultA = await getDataA();
   const resultB = await processDataA(resultA);
