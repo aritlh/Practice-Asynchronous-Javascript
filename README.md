@@ -1,3 +1,14 @@
+- [Dependencies](#dependencies)
+- [Installation](#installation)
+- [Testing](#testing)
+- [Callback Example](#callback-example)
+  - [Node.js:](#nodejs)
+  - [jQuery:](#jquery)
+  - [Express.js:](#expressjs)
+  - [Mongoose:](#mongoose)
+- [Callback Hell](#callback-hell)
+- [Promise](#promise)
+
 # Dependencies
 
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/node-fetch?style=flat-square)
@@ -165,3 +176,41 @@ try {
 ```
 
 Dalam kode di atas, async/await digunakan untuk menghindari penggunaan beruntun fungsi .`then()` dan menggantinya dengan struktur yang lebih sekuensial. Penanganan kesalahan dilakukan dengan menggunakan blok `try-catch`, sehingga kesalahan dapat ditangani dengan lebih jelas dalam blok catch.
+
+# Promise
+
+Untuk membuat sebuah Promise dalam JavaScript, Anda dapat menggunakan constructor `Promise`. Constructor `Promise` menerima satu argumen, yaitu fungsi eksekutor (executor function). Fungsi eksekutor tersebut memiliki dua parameter, yaitu `resolve` dan `reject`, yang merupakan fungsi yang digunakan untuk mengubah keadaan Promise menjadi terpenuhi (fulfilled) atau ditolak (rejected).
+
+Berikut adalah contoh sederhana untuk membuat sebuah Promise:
+
+```javascript
+const myPromise = new Promise(function (resolve, reject) {
+  // Logika operasi asynchronous di sini
+
+  // Jika operasi asynchronous berhasil
+  // Memanggil resolve dengan hasil yang diinginkan
+  resolve("Data yang diterima");
+
+  // Jika operasi asynchronous gagal
+  // Memanggil reject dengan alasan kesalahan
+  // reject('Terjadi kesalahan');
+});
+```
+
+Dalam contoh di atas, kita membuat sebuah Promise menggunakan constructor `Promise`. Dalam fungsi eksekutor, kita menempatkan logika operasi asynchronous yang ingin kita lakukan. Jika operasi asynchronous berhasil, kita memanggil fungsi `resolve` dengan hasil yang diinginkan, sedangkan jika operasi asynchronous gagal, kita memanggil fungsi `reject` dengan alasan kesalahan.
+
+Setelah Promise dibuat, kita dapat menggunakan metode `.then()` dan `.catch()` untuk menentukan tindakan yang akan diambil ketika Promise terpenuhi atau ditolak. Misalnya:
+
+```javascript
+myPromise
+  .then(function (data) {
+    console.log(data); // Menampilkan data yang diterima
+  })
+  .catch(function (error) {
+    console.error(error); // Menampilkan alasan kesalahan jika Promise ditolak
+  });
+```
+
+Dalam contoh ini, kita menggunakan metode `.then()` untuk menentukan tindakan yang akan diambil ketika Promise terpenuhi, yaitu mencetak data yang diterima. Jika Promise ditolak, maka akan menjalankan metode `.catch()` dan mencetak alasan kesalahan.
+
+Dalam prakteknya, fungsi eksekutor pada constructor `Promise` sering kali merupakan tempat di mana operasi asynchronous, seperti pemanggilan HTTP atau operasi berbasis file, dilakukan. Setelah operasi asynchronous selesai, fungsi `resolve` atau `reject` akan dipanggil untuk mengubah keadaan Promise sesuai dengan hasilnya.
