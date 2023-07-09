@@ -5,7 +5,7 @@
 # Installation
 
 ```shell
-npm i node-fetch
+npm install
 ```
 
 # Testing
