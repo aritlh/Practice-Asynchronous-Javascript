@@ -1,3 +1,5 @@
+<h1>ToC</h1>
+
 - [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Testing](#testing)
