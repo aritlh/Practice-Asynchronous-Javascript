@@ -2,6 +2,12 @@
 
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/node-fetch?style=flat-square)
 
+# Installation
+
+```shell
+npm i node-fetch
+```
+
 # Callback Example
 
 Callback digunakan secara luas dalam banyak pustaka (libraries) JavaScript untuk menangani operasi asynchronous atau peristiwa-peristiwa tertentu. Berikut adalah beberapa contoh penggunaan callback dalam pustaka-pustaka JavaScript populer:
@@ -97,58 +103,15 @@ getDataA(function (resultA) {
 Contoh penggunaan Promises untuk menghindari Callback Hell:
 
 ```javascript
-getDataA()
-  .then(function (resultA) {
-    return processDataA(resultA);
-  })
-  .then(function (resultB) {
-    return getDataB(resultB);
-  })
-  .then(function (resultC) {
-    return processDataC(resultC);
-  })
-  .then(function (finalResult) {
-    console.log(finalResult);
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+try {
+  const resultA = await getDataA();
+  const resultB = await processDataA(resultA);
+  const resultC = await getDataB(resultB);
+  const finalResult = await processDataC(resultC);
+  console.log(finalResult);
+} catch (error) {
+  console.error(error);
+}
 ```
 
-Pada contoh pertama, terdapat callback yang bersarang secara berlebihan, di mana setiap operasi asynchronous membutuhkan callback dan menghasilkan pola yang rumit dan sulit dibaca.
-
-Pada contoh kedua, Promises digunakan untuk menghindari Callback Hell. Setiap operasi asynchronous dikembalikan sebagai Promise, dan `.then()` digunakan untuk mengatur alur kode dengan lebih terstruktur. `.catch()` digunakan untuk menangani kesalahan jika terjadi.
-
-Perhatikan bahwa contoh di atas hanya menggambarkan perbedaan dalam gaya penulisan kode antara Callback Hell dan penggunaan Promises. Implementasi sebenarnya dari fungsi `getDataA`, `processDataA`, `getDataB`, dan `processDataC` tidak diberikan dalam contoh ini.
-
-> secara kesimpulan, jika callback hell itu `() => {}` bersarang, sedangkan penanganannya dengan membuat promise. adapun sebuah syntax promise itu yang dimana memiliki method `.then()` dan `.catch()`
-
-Berikut contoh yang sedikit lebih detail terkait penggunaan Promises:
-
-```javascript
-getDataA()
-  .then(function (resultA) {
-    // Melakukan tindakan setelah Promise A terpenuhi
-    return processDataA(resultA);
-  })
-  .then(function (resultB) {
-    // Melakukan tindakan setelah Promise B terpenuhi
-    return getDataB(resultB);
-  })
-  .then(function (resultC) {
-    // Melakukan tindakan setelah Promise C terpenuhi
-    return processDataC(resultC);
-  })
-  .then(function (finalResult) {
-    // Melakukan tindakan setelah semua Promise terpenuhi
-    console.log(finalResult);
-  })
-  .catch(function (error) {
-    // Menangani kesalahan jika terjadi
-    console.error(error);
-  });
-```
-
-Dalam contoh di atas, setiap fungsi asynchronous (seperti `getDataA`, `processDataA`, dll.) mengembalikan Promise. Metode `.then()` digunakan untuk menghubungkan tindakan-tindakan yang akan dilakukan setelah Promise terpenuhi. Jika ada kesalahan, metode `.catch()` akan menangani kesalahan tersebut.
-
-Selain Promises, ada juga pendekatan lain seperti Async/Await yang menyediakan cara penulisan kode yang lebih linier dan mudah dibaca dalam situasi yang melibatkan operasi asynchronous.
+Dalam kode di atas, async/await digunakan untuk menghindari penggunaan beruntun fungsi .`then()` dan menggantinya dengan struktur yang lebih sekuensial. Penanganan kesalahan dilakukan dengan menggunakan blok `try-catch`, sehingga kesalahan dapat ditangani dengan lebih jelas dalam blok catch.
