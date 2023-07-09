@@ -42,14 +42,14 @@ Express.js, framework web populer di Node.js, juga menggunakan callback untuk me
 
 Contoh penggunaan callback dalam penanganan rute HTTP:
 
-     ```javascript
-     const express = require("express");
-     const app = express();
+```javascript
+const express = require("express");
+const app = express();
 
-     app.get("/route", function (req, res) {
-       res.send("Hello, World!");
-     });
-     ```
+app.get("/route", function (req, res) {
+  res.send("Hello, World!");
+});
+```
 
 ### Mongoose:
 
@@ -57,24 +57,24 @@ Mongoose adalah pustaka ODM (Object-Document Mapper) untuk MongoDB, dan juga men
 
 Contoh penggunaan callback dalam operasi `findOne`:
 
-     ```javascript
-     const mongoose = require("mongoose");
+```javascript
+const mongoose = require("mongoose");
 
-     const userSchema = new mongoose.Schema({
-       name: String,
-       email: String,
-     });
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+});
 
-     const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
-     User.findOne({ name: "John" }, function (error, user) {
-       if (error) {
-         console.error("Terjadi kesalahan:", error);
-       } else {
-         console.log("Data pengguna:", user);
-       }
-     });
-     ```
+User.findOne({ name: "John" }, function (error, user) {
+  if (error) {
+    console.error("Terjadi kesalahan:", error);
+  } else {
+    console.log("Data pengguna:", user);
+  }
+});
+```
 
 Pustaka-pustaka JavaScript lainnya, seperti Axios, Lodash, Async.js, dan banyak lagi, juga menggunakan callback dalam berbagai cara untuk menangani operasi asynchronous atau peristiwa tertentu. Callback memberikan fleksibilitas untuk menentukan logika yang akan dijalankan setelah operasi asynchronous selesai atau peristiwa terjadi.
 
