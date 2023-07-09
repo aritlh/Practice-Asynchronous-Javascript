@@ -1,22 +1,25 @@
 /**
  * ! Async/Await dengan try/catch
  */
+
 function fetchData() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const err = new Error("Terjadi kesalahan")
-            reject(err)
-        }, 2000)
-    })
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const err = new Error("Throwing data");
+      reject(err);
+    }, 2000);
+  });
+
+  return promise;
 }
 
 async function getData() {
-    try {
-        const data = await fetchData()
-        console.info("Data:", data)
-    } catch (err) {
-        console.info("Terjadi Kesalahan", err)
-    }
+  try {
+    const data = await fetchData();
+    console.info("Data:", data);
+  } catch (err) {
+    console.error("Terjadi Kesalahan", err);
+  }
 }
 
-getData()
+getData();

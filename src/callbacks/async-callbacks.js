@@ -1,6 +1,7 @@
 /**
  * ! Asynchronous Callbacks
  */
+
 function asyncCallback(callback) {
   setTimeout(() => {
     const data = "Ini data dari tugas asynchronous";

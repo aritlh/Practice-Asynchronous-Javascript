@@ -1,12 +1,13 @@
 /**
  * ! Synchronous Callbacks
  */
-function syncCallback(data, callback) {
+
+function getDataSync(data, callback) {
   const result = "Hasil memproses data";
   callback(result);
 }
 
 const data = "Data dummy";
-syncCallback(data, (result) => {
+getDataSync(data, (result) => {
   console.info(result);
 });
