@@ -186,7 +186,7 @@ Untuk membuat sebuah Promise dalam JavaScript, Anda dapat menggunakan constructo
 Berikut adalah contoh sederhana untuk membuat sebuah Promise:
 
 ```javascript
-const myPromise = new Promise(function (resolve, reject) {
+const myPromise = new Promise((resolve, reject) => {
   // Logika operasi asynchronous di sini
 
   // Jika operasi asynchronous berhasil
