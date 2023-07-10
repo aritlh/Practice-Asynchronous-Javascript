@@ -58,7 +58,7 @@ Sebagai contoh, dalam fungsi `readFile` dari modul `fs`, Anda dapat memberikan c
 ```javascript
 const fs = require("fs");
 
-fs.readFile("file.txt", "utf8", function (error, data) {
+fs.readFile("file.txt", "utf8", (error, data) => {
   if (error) {
     console.error("Terjadi kesalahan:", error);
   } else {
@@ -74,7 +74,7 @@ jQuery menggunakan callback dalam berbagai metode untuk menangani operasi asynch
 Contoh penggunaan callback dalam metode `fadeIn` untuk menangani animasi setelah selesai:
 
 ```javascript
-$("#element").fadeIn("slow", function () {
+$("#element").fadeIn("slow", () => {
   console.log("Animasi fadeIn selesai");
 });
 ```
@@ -89,7 +89,7 @@ Contoh penggunaan callback dalam penanganan rute HTTP:
 const express = require("express");
 const app = express();
 
-app.get("/route", function (req, res) {
+app.get("/route", (req, res) => {
   res.send("Hello, World!");
 });
 ```
@@ -110,7 +110,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-User.findOne({ name: "John" }, function (error, user) {
+User.findOne({ name: "John" }, (error, user) => {
   if (error) {
     console.error("Terjadi kesalahan:", error);
   } else {
@@ -126,10 +126,10 @@ Pustaka-pustaka JavaScript lainnya, seperti Axios, Lodash, Async.js, dan banyak 
 Contoh Callback Hell:
 
 ```javascript
-getDataA(function (resultA) {
-  processDataA(resultA, function (resultB) {
-    getDataB(resultB, function (resultC) {
-      processDataC(resultC, function (finalResult) {
+getDataA((resultA) => {
+  processDataA(resultA, (resultB) => {
+    getDataB(resultB, (resultC) => {
+      processDataC(resultC, (finalResult) => {
         console.log(finalResult);
       });
     });
@@ -141,19 +141,19 @@ Contoh penggunaan Promises untuk menghindari Callback Hell:
 
 ```javascript
 getDataA()
-  .then(function (resultA) {
+  .then((resultA) => {
     // Melakukan tindakan setelah Promise A terpenuhi
     return processDataA(resultA);
   })
-  .then(function (resultB) {
+  .then((resultB) => {
     // Melakukan tindakan setelah Promise B terpenuhi
     return getDataB(resultB);
   })
-  .then(function (resultC) {
+  .then((resultC) => {
     // Melakukan tindakan setelah Promise C terpenuhi
     return processDataC(resultC);
   })
-  .then(function (finalResult) {
+  .then((finalResult) => {
     // Melakukan tindakan setelah semua Promise terpenuhi
     console.log(finalResult);
   })
@@ -205,10 +205,10 @@ Setelah Promise dibuat, kita dapat menggunakan metode `.then()` dan `.catch()` u
 
 ```javascript
 myPromise
-  .then(function (data) {
+  .then((data) => {
     console.log(data); // Menampilkan data yang diterima
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.error(error); // Menampilkan alasan kesalahan jika Promise ditolak
   });
 ```
