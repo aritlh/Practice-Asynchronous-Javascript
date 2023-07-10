@@ -11,6 +11,7 @@
 - [Callback Hell](#callback-hell)
 - [Promise](#promise)
 - [Promisify](#promisify)
+- [Chaining Promises](#chaining-promises)
 
 # Dependencies
 
@@ -271,4 +272,59 @@ Dengan mempromisifikasi fungsi, kita dapat menggunakan Promises secara konsisten
 
 Penting untuk dicatat bahwa tidak semua fungsi JavaScript dapat dengan mudah dipromisifikasi. Beberapa fungsi memerlukan pengaturan dan penyesuaian lebih lanjut. Dalam beberapa kasus, pustaka khusus seperti `util.promisify` di Node.js dapat digunakan untuk mempromisifikasi fungsi secara otomatis.
 
-Saya harap penjelasan ini membantu Anda memahami cara mempromisifikasi fungsi JavaScript. Jika Anda memiliki pertanyaan lebih lanjut, jangan ragu untuk bertanya!
+# Chaining Promises
+
+Chaining Promises adalah teknik di mana kita menggabungkan beberapa Promise secara berurutan, sehingga output dari Promise pertama menjadi input untuk Promise selanjutnya. Hal ini memungkinkan kita untuk mengatur alur eksekusi operasi asynchronous dengan lebih terstruktur dan membaca.
+
+Berikut adalah langkah-langkah untuk melakukan Chaining Promises:
+
+1. Membuat Promise pertama:
+
+   - Buat Promise pertama menggunakan constructor `Promise`.
+   - Di dalam fungsi eksekutor Promise, lakukan operasi asynchronous yang diinginkan.
+   - Gunakan `resolve` untuk mengisi Promise dengan hasil operasi asynchronous atau `reject` jika terjadi kesalahan.
+
+2. Menggunakan `.then()`:
+
+   - Setelah Promise pertama terpenuhi, kita dapat menggunakan `.then()` untuk menentukan tindakan yang akan diambil ketika Promise terpenuhi.
+   - Di dalam `.then()`, kita menerima argumen hasil dari Promise pertama dan melakukan tindakan yang diinginkan.
+   - Kita juga dapat mengembalikan nilai dari `.then()`, yang akan menjadi input untuk `.then()` selanjutnya dalam rantai Promise.
+
+3. Menggunakan `.catch()`:
+   - Jika terjadi penolakan (rejection) dalam rantai Promise, kita dapat menggunakan `.catch()` untuk menangani penolakan tersebut.
+   - Di dalam `.catch()`, kita dapat menangani kesalahan yang terjadi dan mengambil tindakan yang sesuai.
+
+Berikut adalah contoh penggunaan Chaining Promises:
+
+```javascript
+function chainingPromises() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const data = "Data dari promise pertama";
+      resolve(data);
+    }, 1000);
+  });
+}
+
+chainingPromises()
+  .then((data) => {
+    console.log("Promise pertama terpenuhi =>", data);
+
+    return "Data dari promise kedua";
+  })
+  .then((data) => {
+    console.log("Promise kedua terpenuhi =>", data);
+    throw new Error("Terjadi kesalahan");
+  })
+  .catch((err) => {
+    console.error("Terjadi kesalahan", err);
+  });
+```
+
+Dalam contoh ini, kita membuat Promise pertama menggunakan fungsi `fetchData` yang mengembalikan Promise dengan hasil "Data dari Promise pertama". Setelah itu, kita menggunakan `.then()` untuk menentukan tindakan selanjutnya ketika Promise pertama terpenuhi.
+
+Di dalam `.then()` pertama, kita mencetak hasil dari Promise pertama dan mengembalikan "Data dari Promise kedua". Nilai ini kemudian menjadi input untuk `.then()` kedua dalam rantai Promise. Di dalam `.then()` kedua, kita mencetak hasil dari Promise kedua dan melempar sebuah kesalahan.
+
+Karena terjadi penolakan (rejection) dalam `.then()` kedua, kita menangani penolakan tersebut menggunakan `.catch()`. Di dalam `.catch()`, kita menangkap kesalahan yang terjadi dan mencetak pesan kesalahan.
+
+Dengan Chaining Promises, kita dapat menggabungkan beberapa operasi asynchronous secara berurutan, memanipulasi hasilnya, dan menangani penolakan dengan lebih terstruktur.
