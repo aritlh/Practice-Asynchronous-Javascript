@@ -1,5 +1,5 @@
 /**
- *  ! Cara Mengkonsumsi Janji JavaScript: Promise.then
+ *  ! Status akhir dari Promise
  */
 
 // fungsi simulasi operasi async
