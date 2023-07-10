@@ -1,3 +1,7 @@
+/**
+ *  ! Cara Mengkonsumsi Janji JavaScript: Promise.then
+ */
+
 // fungsi simulasi operasi async
 const finalStatePromise = () => {
   return new Promise((resolve, reject) => {
