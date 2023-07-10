@@ -10,6 +10,7 @@
   - [Mongoose:](#mongoose)
 - [Callback Hell](#callback-hell)
 - [Promise](#promise)
+- [Promisify](#promisify)
 
 # Dependencies
 
@@ -216,3 +217,58 @@ myPromise
 Dalam contoh ini, kita menggunakan metode `.then()` untuk menentukan tindakan yang akan diambil ketika Promise terpenuhi, yaitu mencetak data yang diterima. Jika Promise ditolak, maka akan menjalankan metode `.catch()` dan mencetak alasan kesalahan.
 
 Dalam prakteknya, fungsi eksekutor pada constructor `Promise` sering kali merupakan tempat di mana operasi asynchronous, seperti pemanggilan HTTP atau operasi berbasis file, dilakukan. Setelah operasi asynchronous selesai, fungsi `resolve` atau `reject` akan dipanggil untuk mengubah keadaan Promise sesuai dengan hasilnya.
+
+# Promisify
+
+Promisification adalah proses mengubah fungsi JavaScript yang menggunakan pola callback menjadi fungsi yang mengembalikan Promise. Ini memungkinkan kita untuk menggunakan pola penggunaan Promise yang lebih konsisten dalam kode kita.
+
+1. Identifikasi fungsi yang akan dipromisifikasi:
+
+   - Pilih fungsi yang menggunakan pola callback.
+   - Pastikan fungsi tersebut mengikuti konvensi umum dalam pemrograman JavaScript di mana callback adalah argumen terakhir dalam daftar argumen.
+
+2. Buat fungsi baru yang mempromisifikasi fungsi tersebut:
+   - Buat fungsi baru yang mengembalikan Promise.
+   - Di dalam fungsi baru, gunakan pola `resolve` dan `reject` untuk mengontrol keadaan Promise.
+   - Panggil fungsi yang asli dengan menggunakan callback, dan terima hasilnya.
+   - Di dalam callback, gunakan `resolve` untuk mengubah Promise menjadi terpenuhi dengan hasilnya, atau `reject` untuk menolak Promise dengan alasan kesalahan.
+
+Berikut adalah contoh implementasi sederhana untuk mempromisifikasi fungsi `fs.readFile` yang ada dalam modul `fs` di Node.js:
+
+```javascript
+const fs = require("fs");
+
+function readFileAsync(filename) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filename, "utf8", (error, data) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+```
+
+Dalam contoh ini, kita membuat fungsi `readFileAsync` yang mempromisifikasi `fs.readFile`. Fungsi `readFileAsync` mengembalikan Promise yang memungkinkan kita untuk mengonsumsi hasilnya dengan menggunakan `.then()` dan `.catch()`.
+
+Setelah fungsi dipromisifikasi, kita dapat menggunakannya dengan cara berikut:
+
+```javascript
+readFileAsync("file.txt")
+  .then((data) => {
+    console.log("Isi file:", data);
+  })
+  .catch((error) => {
+    console.error("Terjadi kesalahan:", error);
+  });
+```
+
+Dalam contoh ini, kita memanggil `readFileAsync` yang mengembalikan Promise, dan kemudian menggunakan `.then()` dan `.catch()` untuk mengonsumsi hasilnya. Di dalam blok `.then()`, kita mencetak isi file yang diterima. Jika terjadi kesalahan, kita menangani penolakan Promise di blok `.catch()`.
+
+Dengan mempromisifikasi fungsi, kita dapat menggunakan Promises secara konsisten dalam kode kita, menghindari pola callback hell, dan mengelola operasi asynchronous dengan lebih baik.
+
+Penting untuk dicatat bahwa tidak semua fungsi JavaScript dapat dengan mudah dipromisifikasi. Beberapa fungsi memerlukan pengaturan dan penyesuaian lebih lanjut. Dalam beberapa kasus, pustaka khusus seperti `util.promisify` di Node.js dapat digunakan untuk mempromisifikasi fungsi secara otomatis.
+
+Saya harap penjelasan ini membantu Anda memahami cara mempromisifikasi fungsi JavaScript. Jika Anda memiliki pertanyaan lebih lanjut, jangan ragu untuk bertanya!
