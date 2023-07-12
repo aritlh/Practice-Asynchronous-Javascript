@@ -2,6 +2,7 @@
 
 - [Dependencies](#dependencies)
 - [Installation](#installation)
+- [Callback with asnyc syntax?](#callback-with-asnyc-syntax)
 - [Testing](#testing)
 - [Callback Example](#callback-example)
   - [Node.js:](#nodejs)
@@ -22,6 +23,10 @@
 ```shell
 npm install
 ```
+
+# Callback with asnyc syntax?
+
+Seharusnya, ketika menggunakan callback dalam suatu function, tidak ada kebutuhan untuk menggunakan kata kunci `async`. Callback digunakan untuk menangani hasil asinkron, dan tidak ada kebutuhan untuk mengubah fungsi menjadi fungsi async.
 
 # Testing
 
