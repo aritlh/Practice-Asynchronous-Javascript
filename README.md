@@ -13,6 +13,7 @@
 - [Promise](#promise)
 - [Promisify](#promisify)
 - [Chaining Promises](#chaining-promises)
+- [Handling Promise Rejections](#handling-promise-rejections)
 
 # Dependencies
 
@@ -333,3 +334,90 @@ Di dalam `.then()` pertama, kita mencetak hasil dari Promise pertama dan mengemb
 Karena terjadi penolakan (rejection) dalam `.then()` kedua, kita menangani penolakan tersebut menggunakan `.catch()`. Di dalam `.catch()`, kita menangkap kesalahan yang terjadi dan mencetak pesan kesalahan.
 
 Dengan Chaining Promises, kita dapat menggabungkan beberapa operasi asynchronous secara berurutan, memanipulasi hasilnya, dan menangani penolakan dengan lebih terstruktur.
+
+# Handling Promise Rejections
+
+Handling Promise rejections adalah proses menangani kasus ketika sebuah Promise ditolak (rejected). Ketika sebuah Promise ditolak, kita perlu memiliki mekanisme untuk menangani kesalahan (errors) yang terjadi dalam operasi asinkron.
+
+Berikut adalah beberapa teknik yang dapat digunakan untuk menangani Promise rejections:
+
+1. Menggunakan `.catch()`:
+   Metode `.catch()` dapat digunakan untuk menangkap dan menangani kesalahan yang terjadi pada Promise. Ketika sebuah Promise ditolak, metode `.catch()` akan menangkap kesalahan tersebut.
+
+   Contoh penggunaan `.catch()`:
+
+   ```javascript
+   function fetchData() {
+     return new Promise(function (resolve, reject) {
+       setTimeout(function () {
+         reject(new Error("Terjadi kesalahan"));
+       }, 2000);
+     });
+   }
+
+   fetchData()
+     .then(function (data) {
+       console.log("Data yang diambil:", data);
+     })
+     .catch(function (error) {
+       console.log("Terjadi error:", error);
+     });
+   ```
+
+   Dalam contoh di atas, jika operasi asinkron dalam `fetchData()` menghasilkan kesalahan, Promise akan ditolak dengan error. Error tersebut akan ditangkap oleh metode `.catch()`.
+
+2. Menggunakan blok `try-catch` dengan Async Await:
+   Ketika menggunakan Async Await, kita dapat menggunakan blok `try-catch` untuk menangkap kesalahan yang terjadi dalam operasi asinkron yang menggunakan `await`. Ketika sebuah Promise ditolak, blok `catch` akan menangkap kesalahan tersebut.
+
+   Contoh penggunaan `try-catch` dengan Async Await:
+
+   ```javascript
+   function fetchData() {
+     return new Promise(function (resolve, reject) {
+       setTimeout(function () {
+         reject(new Error("Terjadi kesalahan"));
+       }, 2000);
+     });
+   }
+
+   async function getData() {
+     try {
+       const data = await fetchData();
+       console.log("Data yang diambil:", data);
+     } catch (error) {
+       console.log("Terjadi error:", error);
+     }
+   }
+
+   getData();
+   ```
+
+   Dalam contoh di atas, jika operasi asinkron dalam `fetchData()` menghasilkan kesalahan, Promise akan ditolak dengan error. Error tersebut akan ditangkap oleh blok `catch`.
+
+3. Menggabungkan `.catch()` dengan `.then()`:
+   Kita juga dapat menggunakan metode `.then()` untuk menangani Promise resolutions (terpenuhi) dan juga Promise rejections (ditolak). Kita dapat menggunakan `.catch()` setelah `.then()` untuk menangkap dan menangani kesalahan.
+
+   Contoh penggunaan `.catch()` dengan `.then()`:
+
+   ```javascript
+   function fetchData() {
+     return new Promise(function (resolve, reject) {
+       setTimeout(function () {
+         reject(new Error("Terjadi kesalahan"));
+       }, 2000);
+     });
+   }
+
+   fetchData().then(
+     function (data) {
+       console.log("Data yang diambil:", data);
+     },
+     function (error) {
+       console.log("Terjadi error:", error);
+     }
+   );
+   ```
+
+   Dalam contoh di atas, kita memberikan dua fungsi ke dalam `.then()`. Fungsi pertama menangani kasus ketika Promise terpenuhi, dan fungsi kedua menangani kasus ketika Promise ditolak.
+
+Dengan menggunakan metode `.catch()`, blok `try-catch`, atau menggabungkan `.catch()` dengan `.then()`, kita dapat mengatasi dan menangani Promise rejections (penolakan Promise) dengan baik. Hal ini membantu dalam mengelola kesalahan dan memastikan aplikasi kita dapat berjalan dengan lancar bahkan ketika ada operasi asinkron yang mengalami kesalahan.
