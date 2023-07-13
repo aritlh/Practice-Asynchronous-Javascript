@@ -1,3 +1,7 @@
+/**
+ * ! Membuat HTTP request menggunakan fetch API
+ */
+
 import fetch from "node-fetch";
 
 /**
