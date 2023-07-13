@@ -1,62 +1,88 @@
 import fetch from "node-fetch";
 
-// callback
-function getSingleCart(callback) {
-  fetch("https://dummyjson.com/carts/1")
-    .then((response) => {
-      if (!response.ok) throw new Error("tidak ditemukan");
+/**
+ * ! Callback
+ * ! Get a single product
+ */
 
-      return response.json();
-    })
-    .then((data) => {
-      callback(data);
-    })
-    .catch((err) => {
-      callback(err);
-    });
+function getSingleProduct(callback) {
+  setTimeout(() => {
+    fetch("https://dummyjson.com/products/1")
+      .then((response) => response.json())
+      .then((data) => {
+        callback(null, data); // Mengirimkan null sebagai argumen error dan data sebagai argumen hasil
+      })
+      .catch((error) => {
+        callback(error, null); // Mengirimkan error sebagai argumen error dan null sebagai argumen hasil
+      });
+  }, 100);
 }
 
-// promise without new Promise
-const getSingleUser = () => {};
-// promise
-const getSingleProduct = async () => {
-  return new Promise(async (resolve, reject) => {
-    const response = await fetch("https://dummyjson.com/products/1");
+function processSingleProduct(error, data) {
+  if (error) {
+    console.error("Terjadi Kesalahan:", error);
+  } else {
+    console.info("Berhasil diterima kembali data:", data);
+  }
+}
 
-    const data = response.json();
+getSingleProduct(processSingleProduct);
 
-    if (!data) {
-      reject("Tidak ditemukan");
-    }
+/**
+ * ! Promise
+ * ! Get a single cart
+ */
 
-    resolve(data);
+function getSingleCart() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      fetch("https://dummyjson.com/carts/1")
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    }, 100);
+  });
+}
+
+getSingleCart()
+  .then((data) => {
+    console.info("Berhasil diterima kembali data:", data);
   })
-    .then((data) => {
-      console.info("\n\n\nMenampilkan data (get single product):\n\n", data);
-    })
-    .catch((err) => {
-      console.error(err);
+  .catch((error) => {
+    console.error("Terjadi Kesalahan:", error);
+  });
+
+/**
+ * ! Async/await
+ * ! Get a single user
+ */
+
+function getSingleUser() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      fetch("https://dummyjson.com/users/1")
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
-};
+  });
+}
 
-// async/await
-const getSinglePost = async (callback) => {
-  const response = await fetch("https://dummyjson.com/posts/1");
+async function processSingleUser() {
+  try {
+    const data = await getSingleUser();
+    console.info("Berhasil diterima kembali data:", data);
+  } catch (err) {
+    console.error("Terjadi Kesalahan:", err);
+  }
+}
 
-  const data = await response.json();
-
-  callback(data);
-};
-
-// call the function
-
-getSingleCart((data, err) => {
-  if (!data) console.error(err);
-  console.info("\n\n\nMenampilkan data (get all single cart)\n\n", data);
-});
-
-getSingleProduct();
-
-getSinglePost((data) => {
-  console.log("\n\n\nMenampilkan data (get single post)\n\n", data);
-});
+processSingleUser();
