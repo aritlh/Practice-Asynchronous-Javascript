@@ -346,18 +346,18 @@ Berikut adalah beberapa teknik yang dapat digunakan untuk menangani Promise reje
 
    ```javascript
    function fetchData() {
-     return new Promise(function (resolve, reject) {
-       setTimeout(function () {
+     return new Promise((resolve, reject) => {
+       setTimeout(() => {
          reject(new Error("Terjadi kesalahan"));
        }, 2000);
      });
    }
 
    fetchData()
-     .then(function (data) {
+     .then((data) => {
        console.log("Data yang diambil:", data);
      })
-     .catch(function (error) {
+     .catch((error) => {
        console.log("Terjadi error:", error);
      });
    ```
@@ -371,8 +371,8 @@ Berikut adalah beberapa teknik yang dapat digunakan untuk menangani Promise reje
 
    ```javascript
    function fetchData() {
-     return new Promise(function (resolve, reject) {
-       setTimeout(function () {
+     return new Promise((resolve, reject) => {
+       setTimeout(() => {
          reject(new Error("Terjadi kesalahan"));
        }, 2000);
      });
@@ -399,18 +399,18 @@ Berikut adalah beberapa teknik yang dapat digunakan untuk menangani Promise reje
 
    ```javascript
    function fetchData() {
-     return new Promise(function (resolve, reject) {
-       setTimeout(function () {
+     return new Promise((resolve, reject) => {
+       setTimeout(() =. {
          reject(new Error("Terjadi kesalahan"));
        }, 2000);
      });
    }
 
    fetchData().then(
-     function (data) {
+     (data) => {
        console.log("Data yang diambil:", data);
      },
-     function (error) {
+     (error) => {
        console.log("Terjadi error:", error);
      }
    );
