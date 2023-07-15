@@ -423,40 +423,41 @@ Dengan menggunakan metode `.catch()`, blok `try-catch`, atau menggabungkan `.cat
 
 # Promise.resolve and Promise.reject
 
-Dalam JavaScript, terdapat dua metode statis yang terkait dengan Promise, yaitu `Promise.resolve` dan `Promise.reject`. Kedua metode ini digunakan untuk menghasilkan Promise dengan keadaan tertentu, baik terpenuhi (resolved) maupun ditolak (rejected).
+Promise.resolve dan Promise.reject adalah metode static pada Promise yang berguna untuk secara langsung membuat promise dalam state tertentu.
 
-Berikut penjelasan dan contoh penggunaan dari `Promise.resolve` dan `Promise.reject`:
+Promise.resolve akan membuat promise dalam state fulfilled. Contoh:
 
-1. `Promise.resolve`:
-   `Promise.resolve` digunakan untuk menghasilkan Promise yang terpenuhi (resolved) dengan nilai tertentu. Metode ini berguna ketika kita ingin membuat Promise yang langsung terpenuhi tanpa harus menunggu operasi asinkron selesai.
+```js
+const promise = Promise.resolve("Hello");
 
-   Contoh penggunaan `Promise.resolve`:
+promise.then((result) => {
+  console.log(result); // Hello
+});
+```
 
-   ```javascript
-   const resolvedPromise = Promise.resolve("Nilai terpenuhi");
+Promise.resolve menerima satu argumen yang akan menjadi hasil dari promise. Jika argumen adalah promise lain, maka promise baru akan mengikuti state dari promise tersebut.
 
-   resolvedPromise.then((value) => {
-     console.log(value); // Output: Nilai terpenuhi
-   });
-   ```
+Promise.reject membuat promise dalam state rejected. Contoh:
 
-   Dalam contoh di atas, kita menggunakan `Promise.resolve` untuk menghasilkan Promise yang langsung terpenuhi dengan nilai 'Nilai terpenuhi'. Kemudian kita menggunakan `.then()` untuk menangani nilai yang terpenuhi.
+```js
+const promise = Promise.reject(new Error("Error!"));
 
-2. `Promise.reject`:
-   `Promise.reject` digunakan untuk menghasilkan Promise yang ditolak (rejected) dengan alasan tertentu. Metode ini berguna ketika kita ingin secara eksplisit menolak Promise dengan alasan kesalahan (error).
+promise.catch((err) => {
+  console.error(err); // Error: Error!
+});
+```
 
-   Contoh penggunaan `Promise.reject`:
+Promise.reject menerima satu argumen yang akan menjadi alasan promise ditolak (reject reason). Biasanya berupa error/exception.
 
-   ```javascript
-   const rejectedPromise = Promise.reject(new Error("Terjadi kesalahan"));
+Kegunaan Promise.resolve:
 
-   rejectedPromise.catch((error) => {
-     console.log(error.message); // Output: Terjadi kesalahan
-   });
-   ```
+- Mengubah nilai non-promise menjadi promise
+- Mengembalikan promise yang sama jika argumennya promise
+- Berguna di Promise.all()
 
-   Dalam contoh di atas, kita menggunakan `Promise.reject` untuk menghasilkan Promise yang langsung ditolak dengan pesan error 'Terjadi kesalahan'. Kemudian kita menggunakan `.catch()` untuk menangkap dan menangani Promise yang ditolak.
+Kegunaan Promise.reject:
 
-Kombinasi penggunaan `Promise.resolve` dan `Promise.reject` bersama dengan metode lain seperti `.then()` dan `.catch()` memungkinkan kita untuk mengelola Promise dengan lebih fleksibel dan menjalankan logika berdasarkan keadaan Promise (terpenuhi atau ditolak).
+- Membuat promise yang rejected, umum untuk testing
+- Melakukan reject langsung tanpa throw error
 
-Penting untuk dicatat bahwa kedua metode tersebut mengembalikan sebuah Promise. Dalam contoh-contoh di atas, kita menangani Promise dengan menggunakan `.then()` dan `.catch()`, tetapi kita juga bisa menggabungkan dengan metode lain seperti Async Await atau menggunakan Promise chaining untuk melakukan operasi tambahan pada Promise yang dihasilkan.
+Jadi Promise.resolve dan Promise.reject memudahkan kita membuat objek Promise tanpa harus menginisiasi Promise constructor secara manual.
