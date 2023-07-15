@@ -15,6 +15,7 @@
 - [Chaining Promises](#chaining-promises)
 - [Handling Promise Rejections](#handling-promise-rejections)
 - [Promise.resolve and Promise.reject](#promiseresolve-and-promisereject)
+- [Promise.all: Implementing From Scratch](#promiseall-implementing-from-scratch)
 
 # Dependencies
 
@@ -60,7 +61,7 @@ Callback digunakan secara luas dalam banyak pustaka (libraries) JavaScript untuk
 
 Dalam lingkungan Node.js, banyak fungsi bawaan menggunakan pola callback untuk menangani operasi asynchronous.
 
-Sebagai contoh, dalam fungsi `readFile` dari modul `fs`, Anda dapat memberikan callback sebagai argumen untuk menangani hasil pembacaan file.
+Sebagai contoh, dalam fungsi `readFile` dari modul `fs`, anda dapat memberikan callback sebagai argumen untuk menangani hasil pembacaan file.
 
 ```javascript
 const fs = require("fs");
@@ -188,7 +189,7 @@ Dalam kode di atas, async/await digunakan untuk menghindari penggunaan beruntun 
 
 # Promise
 
-Untuk membuat sebuah Promise dalam JavaScript, Anda dapat menggunakan constructor `Promise`. Constructor `Promise` menerima satu argumen, yaitu fungsi eksekutor (executor function). Fungsi eksekutor tersebut memiliki dua parameter, yaitu `resolve` dan `reject`, yang merupakan fungsi yang digunakan untuk mengubah keadaan Promise menjadi terpenuhi (fulfilled) atau ditolak (rejected).
+Untuk membuat sebuah Promise dalam JavaScript, anda dapat menggunakan constructor `Promise`. Constructor `Promise` menerima satu argumen, yaitu fungsi eksekutor (executor function). Fungsi eksekutor tersebut memiliki dua parameter, yaitu `resolve` dan `reject`, yang merupakan fungsi yang digunakan untuk mengubah keadaan Promise menjadi terpenuhi (fulfilled) atau ditolak (rejected).
 
 Berikut adalah contoh sederhana untuk membuat sebuah Promise:
 
@@ -461,3 +462,51 @@ Kegunaan Promise.reject:
 - Melakukan reject langsung tanpa throw error
 
 Jadi Promise.resolve dan Promise.reject memudahkan kita membuat objek Promise tanpa harus menginisiasi Promise constructor secara manual.
+
+# Promise.all: Implementing From Scratch
+
+Promise.all adalah method promise yang berguna untuk mengeksekusi beberapa promise secara paralel dan menunggu semuanya selesai. Kita bisa mengimplementasikan fungsi seperti Promise.all dari awal seperti berikut:
+
+```js
+function promiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(promises)) {
+      return reject(new Error("Expected an array"));
+    }
+
+    let results = [];
+    let completedPromises = 0;
+
+    promises.forEach((promise, index) => {
+      promise
+        .then((result) => {
+          results[index] = result;
+          completedPromises++;
+
+          if (completedPromises === promises.length) {
+            resolve(results);
+          }
+        })
+        .catch(reject);
+    });
+  });
+}
+```
+
+Cara kerjanya:
+
+- Validasi input harus array
+- Inisiasi variabel kosong untuk menyimpan hasil dan hitungan promise yang selesai
+- Loop array promise, tambahkan then handler untuk setiap promise
+- Di then handler, simpan hasil di array results dan tambah counter completedPromises
+- Jika counter sama dengan total promise, resolve promise utama dengan results
+- Tambahkan catch handler untuk reject promise utama jika ada error
+
+Dengan begini kita sudah memiliki implementasi sederhana Promise.all dari nol. Perbedaannya dengan Promise.all asli:
+
+- Tidak support iterable selain array
+- Urutan hasil resolve tidak dijamin sama dengan urutan promise
+
+Tapi secara umum cara kerjanya sama, yaitu mengeksekusi promise secara paralel dan resolve ketika semua selesai.
+
+Implementasi ini bisa dikembangkan lebih lanjut, misalnya dengan menambahkan dukungan iterable atau menjaga urutan hasil resolve. Intinya kita sudah paham cara kerja dasar Promise.all.
