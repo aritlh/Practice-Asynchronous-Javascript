@@ -19,7 +19,7 @@
 
 # Dependencies
 
-![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/node-fetch?style=flat-square) ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/dev/%40jest%2Fglobals/master?style=flat-square) ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/dev/jest/master?style=flat-square)
+![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/node-fetch?style=flat-square) ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/dev/%40jest%2Fglobals/master?style=flat-square) ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/dev/jest/master?style=flat-square) ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/zen2kai/async_js/axios?style=flat-square)
 
 # Installation
 
