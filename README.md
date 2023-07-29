@@ -18,6 +18,7 @@
 - [Promise.all: Implementing From Scratch](#promiseall-implementing-from-scratch)
 - [Await Keyword in JavaScript](#await-keyword-in-javascript)
 - [Handling Errors Using Async Await](#handling-errors-using-async-await)
+- [What About Task Priorities?](#what-about-task-priorities)
 - [A Closer Look at the Task Queue](#a-closer-look-at-the-task-queue)
 
 # Dependencies
@@ -582,6 +583,50 @@ Manfaatnya:
 - Kode lebih simple dan mudah dibaca daripada menggunakan .catch()
 - Bisa menangani multiple await
 - Bisa throw custom error yang bisa ditangkap oleh catch
+
+# What About Task Priorities?
+
+Tidak semua task asynchronous memiliki prioritas yang sama. Ada beberapa hal yang mempengaruhi urutan eksekusi task:
+
+**1. Urutan kode**
+
+Secara default, task asynchronous akan dieksekusi sesuai urutan kode:
+
+```js
+asyncTask1();
+asyncTask2();
+asyncTask3();
+```
+
+asyncTask1 akan dijalankan terlebih dahulu.
+
+**2. Async-await**
+
+Jika menggunakan async-await, await akan "menahan" eksekusi hingga task selesai:
+
+```js
+await asyncTask1();
+await asyncTask2();
+asyncTask3();
+```
+
+asyncTask3 akan menunggu asyncTask2 selesai, asyncTask2 menunggu asyncTask1.
+
+**3. Promise.all**
+
+Promise.all akan menjalankan task secara bersamaan, tapi menunggu semua selesai:
+
+```js
+await Promise.all([asyncTask1(), asyncTask2()]);
+
+asyncTask3();
+```
+
+asyncTask3 ditunda hingga asyncTask1 dan asyncTask2 selesai.
+
+**Kesimpulan:**
+
+Urutan kode, penggunaan await, dan Promise.all mempengaruhi prioritas eksekusi. Secara default, task asynchronous tidak selalu sama prioritasnya.
 
 # A Closer Look at the Task Queue
 
