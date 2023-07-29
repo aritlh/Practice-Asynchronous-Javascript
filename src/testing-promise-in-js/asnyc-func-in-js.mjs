@@ -5,10 +5,13 @@ import fetch from "node-fetch";
  */
 
 async function getProducts() {
-  const response = await fetch("https://dummyjson.com/products/1");
-  const data = await response.json();
-
-  return data;
+  try {
+    const response = await fetch("https://dummyjson.com/products/1");
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Data tidak ditemukan", err);
+  }
 }
 
 getProducts()
