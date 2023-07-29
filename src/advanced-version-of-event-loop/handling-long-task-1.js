@@ -1,3 +1,7 @@
+/**
+ * ! Handling Long Tasks in JavaScript. Part 1
+ */
+
 // Fungsi long task synchronous
 function longTask() {
   console.log("Start long task");
