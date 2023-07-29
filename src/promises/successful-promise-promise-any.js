@@ -10,6 +10,10 @@ function promiseRace(promises) {
   });
 }
 
+/**
+ * Contoh penggunaan
+ */
+
 const prom1 = new Promise((resolve, reject) =>
   setTimeout(resolve, 500, "satu")
 );
