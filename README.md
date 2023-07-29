@@ -17,6 +17,7 @@
 - [Promise.resolve and Promise.reject](#promiseresolve-and-promisereject)
 - [Promise.all: Implementing From Scratch](#promiseall-implementing-from-scratch)
 - [Await Keyword in JavaScript](#await-keyword-in-javascript)
+- [Handling Errors Using Async Await](#handling-errors-using-async-await)
 
 # Dependencies
 
@@ -546,3 +547,37 @@ async function getUser() {
 ```
 
 - Async function yang mengandung await disebut juga sebagai Promise-based function, karena secara implisit mengembalikan Promise.
+
+# Handling Errors Using Async Await
+
+Salah satu keuntungan async/await adalah bisa menangani error layaknya kode synchronous menggunakan try/catch.
+
+Contoh:
+
+```js
+async function getUser() {
+  try {
+    const response = await fetch("/api/user");
+    const user = await response.json();
+
+    return user;
+  } catch (error) {
+    // handling error di sini
+    console.log(error);
+  }
+}
+
+getUser();
+```
+
+Cara kerjanya:
+
+- Jika ada await yang reject atau throw error, maka akan melompat ke block catch
+- Kita bisa menangani error di dalam catch block, misal logging error
+- Fungsi akan tetap berjalan setelah catch block selesai
+
+Manfaatnya:
+
+- Kode lebih simple dan mudah dibaca daripada menggunakan .catch()
+- Bisa menangani multiple await
+- Bisa throw custom error yang bisa ditangkap oleh catch
