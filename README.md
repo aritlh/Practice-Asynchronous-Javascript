@@ -19,7 +19,6 @@
 - [Await Keyword in JavaScript](#await-keyword-in-javascript)
 - [Handling Errors Using Async Await](#handling-errors-using-async-await)
 - [What About Task Priorities?](#what-about-task-priorities)
-- [A Closer Look at the Task Queue](#a-closer-look-at-the-task-queue)
 
 # Dependencies
 
@@ -627,63 +626,3 @@ asyncTask3 ditunda hingga asyncTask1 dan asyncTask2 selesai.
 **Kesimpulan:**
 
 Urutan kode, penggunaan await, dan Promise.all mempengaruhi prioritas eksekusi. Secara default, task asynchronous tidak selalu sama prioritasnya.
-
-# A Closer Look at the Task Queue
-
-Task Queue adalah antrian yang digunakan oleh JavaScript runtime untuk menyimpan task yang siap dieksekusi. Task queue ini dikelola oleh Event Loop.
-
-Beberapa hal penting tentang Task Queue:
-
-- Task Queue menyimpan function atau script yang sudah siap untuk dieksekusi. Misalnya callback function.
-
-- Task didalam queue akan dieksekusi secara FIFO (First In First Out) oleh Event Loop, artinya task pertama yang masuk antrian akan dieksekusi terlebih dahulu.
-
-- Task queue biasanya single threaded, artinya hanya satu task yang akan dieksekusi pada satu waktu oleh Event Loop thread.
-
-- Beberapa task queue yang umum digunakan:
-
-  - Macrotask Queue untuk task seperti promise, DOM events
-  - Microtask Queue untuk task seperti mutation observer
-
-- Task dengan prioritas lebih tinggi (microtask) akan diproses terlebih dahulu dibandingkan task prioritas rendah (macrotask)
-
-```js
-// Contoh task
-function task1() {
-  console.log('Task 1');
-}
-
-function task2() {
-  console.log('Task 2');
-}
-
-function task3() {
-  console.log('Task 3');
-}
-
-// Masukkan task ke queue
-setTimeout(task1, 0);
-setTimeout(task2, 0);
-
-// Microtask
-Promise.resolve()
-  .then(task3);
-
-// Output
-Task 3 // microtask, prioritas lebih tinggi
-Task 1 // task queue FIFO
-Task 2
-```
-
-Pada kode di atas:
-
-- task1, task2 dimasukkan ke task queue lewat setTimeout
-- task3 dimasukkan lewat microtask .then()
-
-Urutan eksekusinya:
-
-- task3 (microtask) dieksekusi terlebih dahulu
-- task1 dieksekusi karena masuk queue lebih dulu dibanding task2 (FIFO)
-- task2 dieksekusi
-
-Contoh kode ini menunjukkan perilaku task queue first-in-first-out dan prioritas microtask di atas macrotask.
