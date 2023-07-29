@@ -546,5 +546,3 @@ async function getUser() {
 ```
 
 - Async function yang mengandung await disebut juga sebagai Promise-based function, karena secara implisit mengembalikan Promise.
-
-Itu penjelasan singkat tentang await di JavaScript. Apakah sudah cukup jelas? Jika masih ada yang kurang dimengerti silakan bertanya lagi.
