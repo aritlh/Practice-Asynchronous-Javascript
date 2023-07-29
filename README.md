@@ -16,6 +16,7 @@
 - [Handling Promise Rejections](#handling-promise-rejections)
 - [Promise.resolve and Promise.reject](#promiseresolve-and-promisereject)
 - [Promise.all: Implementing From Scratch](#promiseall-implementing-from-scratch)
+- [Await Keyword in JavaScript](#await-keyword-in-javascript)
 
 # Dependencies
 
@@ -510,3 +511,40 @@ Dengan begini kita sudah memiliki implementasi sederhana Promise.all dari nol. P
 Tapi secara umum cara kerjanya sama, yaitu mengeksekusi promise secara paralel dan resolve ketika semua selesai.
 
 Implementasi ini bisa dikembangkan lebih lanjut, misalnya dengan menambahkan dukungan iterable atau menjaga urutan hasil resolve. Intinya kita sudah paham cara kerja dasar Promise.all.
+
+# Await Keyword in JavaScript
+
+- Await hanya bisa digunakan di dalam async function. Fungsinya adalah untuk menunda eksekusi kode hingga Promise selesai.
+
+- Penulisannya await diikuti dengan promise. Contoh:
+
+```js
+async function fetchUser() {
+  const response = await fetch("/api/user");
+  // tunggu fetch selesai baru lanjut ke kode berikutnya
+
+  const user = response.json();
+  return user;
+}
+```
+
+- Await akan menghentikan eksekusi async function dan menunggu Promise diselesaikan terlebih dahulu. Baru setelah itu kode di bawahnya akan dieksekusi.
+
+- Await mengembalikan resolved value dari Promise. Jika promise gagal/reject, maka akan melempar exception yang bisa ditangani dengan try/catch.
+
+Contoh penanganan error:
+
+```js
+async function getUser() {
+  try {
+    const response = await fetch("/api/user");
+    return response.json();
+  } catch (error) {
+    // handling jika terjadi error
+  }
+}
+```
+
+- Async function yang mengandung await disebut juga sebagai Promise-based function, karena secara implisit mengembalikan Promise.
+
+Itu penjelasan singkat tentang await di JavaScript. Apakah sudah cukup jelas? Jika masih ada yang kurang dimengerti silakan bertanya lagi.
